@@ -1,0 +1,41 @@
+server:
+  port: 7100
+
+spring:
+  application:
+    name: idoss-main
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE}
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      initialSize: 10
+      minIdle: 5
+      maxActive: 100
+      maxWait: 60000
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      filter:
+        stat:
+          enabled: true
+        wall:
+          enabled: true
+          drop-table-allow: false
+
+logging:
+  file: ./logs/idoss-main.log
+  level:
+    com.sprucetec: DEBUG
+    org.springframework: INFO
+  pattern:
+    console: "%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %clr(%logger){cyan} %clr(%msg%n){green}"
+    file: "%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n"
+
+mybatis:
+  config-locations: classpath*:mybatis-config.xml
+  mapper-locations: classpath*:mapper/*-mapper.xml
